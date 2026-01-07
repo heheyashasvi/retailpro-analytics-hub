@@ -1,39 +1,20 @@
-'use client'
+import React, { ComponentType, Suspense } from "react"
+import LoadingSpinner from "./loading-spinner"
 
-import { Suspense, lazy, ComponentType } from 'react'
-import { LoadingSpinner } from './loading-spinner'
-
-interface LazyWrapperProps {
+type LazyWrapperProps = {
   fallback?: React.ReactNode
 }
 
-export function createLazyComponent<T extends ComponentType<any>>(
-  importFn: () => Promise<{ default: T }>,
-  fallback?: React.ReactNode
-) {
-  const LazyComponent = lazy(importFn)
-  
-  return function LazyWrapper(props: React.ComponentProps<T> & LazyWrapperProps) {
-    const { fallback: customFallback, ...componentProps } = props
-    
-    return (
-      <Suspense fallback={customFallback || fallback || <LoadingSpinner />}>
-        <LazyComponent {...(componentProps as React.ComponentProps<T>)} />
-      </Suspense>
-    )
-  }
-}
-
-export function LazyComponentWrapper({ 
-  children, 
-  fallback 
-}: { 
-  children: React.ReactNode
-  fallback?: React.ReactNode 
-}) {
+export function LazyWrapper<T extends ComponentType<any>>({
+  component: LazyComponent,
+  fallback,
+  ...props
+}: {
+  component: T
+} & LazyWrapperProps & React.ComponentProps<T>) {
   return (
-    <Suspense fallback={fallback || <LoadingSpinner />}>
-      {children}
+    <Suspense fallback={fallback ?? <LoadingSpinner />}>
+      <LazyComponent {...props} />
     </Suspense>
   )
 }
