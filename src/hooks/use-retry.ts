@@ -57,7 +57,7 @@ export function useRetry<T>(
     setIsLoading(false);
   }, []);
 
-  const canRetry = error && isRetryableError(error) && retryCount < maxRetries;
+const canRetry = Boolean(error) && isRetryableError(error) && retryCount < maxRetries;
 
   return {
     execute,
@@ -67,4 +67,5 @@ export function useRetry<T>(
     canRetry,
     reset,
   };
+
 }
