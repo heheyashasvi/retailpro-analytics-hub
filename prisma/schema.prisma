@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id                String   @id @default(cuid())
+  name              String
+  description       String?
+  price             Float
+  costPrice         Float?   @map("cost_price")
+  stock             Int      @default(0)
+  lowStockThreshold Int?     @default(10) @map("low_stock_threshold")
+  category          String
+  status            String   @default("draft") // 'active' | 'inactive' | 'draft'
+  specifications    String?  // JSON string for specifications
+  tags              String?  // JSON string for tags array
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  images    ProductImage[]
+  salesData SalesData[]
+
+  @@map("products")
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  productId String   @map("product_id")
+  url       String
+  altText   String?  @map("alt_text")
+  isPrimary Boolean  @default(false) @map("is_primary")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("product_images")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  name         String
+  role         String   @default("admin") // 'admin' | 'super_admin'
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("admin_users")
+}
+
+model SalesData {
+  id          String   @id @default(cuid())
+  productId   String?  @map("product_id")
+  quantity    Int
+  unitPrice   Float    @map("unit_price")
+  totalAmount Float    @map("total_amount")
+  saleDate    DateTime @default(now()) @map("sale_date")
+
+  // Relations
+  product Product? @relation(fields: [productId], references: [id])
+
+  @@map("sales_data")
+}
