@@ -18,7 +18,7 @@ export function createLazyComponent<T extends ComponentType<any>>(
     
     return (
       <Suspense fallback={customFallback || fallback || <LoadingSpinner />}>
-        <LazyComponent {...componentProps} />
+        <LazyComponent {...(componentProps as React.ComponentProps<T>)} />
       </Suspense>
     )
   }
