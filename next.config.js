@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Force dynamic rendering for all routes
+  experimental: {
+    dynamicIO: true,
+  },
+  
   // Image optimization settings
   images: {
     domains: ['res.cloudinary.com'],
@@ -171,6 +176,8 @@ const nextConfig = {
     serverComponentsExternalPackages: ['bcryptjs'],
     // Enable optimized CSS loading
     optimizeCss: true,
+    // Force dynamic rendering for all routes
+    dynamicIO: true,
   },
   
   // Compiler options

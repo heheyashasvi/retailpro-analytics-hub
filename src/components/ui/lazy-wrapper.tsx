@@ -1,5 +1,5 @@
 import React, { ComponentType, Suspense } from "react"
-import LoadingSpinner from "./loading-spinner"
+import { LoadingSpinner } from "./loading-spinner"
 
 type LazyWrapperProps = {
   fallback?: React.ReactNode
@@ -18,3 +18,5 @@ export function LazyWrapper<T extends ComponentType<any>>({
     </Suspense>
   )
 }
+
+

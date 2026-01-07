@@ -6,6 +6,10 @@ import { QueryProvider } from '@/components/providers/query-provider'
 import ErrorBoundary from '@/components/error-boundary'
 import { Toaster } from 'sonner'
 
+// Force dynamic rendering for the entire app
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 const inter = Inter({ 
   subsets: ['latin'],
   display: 'swap',
