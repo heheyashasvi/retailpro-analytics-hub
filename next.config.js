@@ -183,8 +183,7 @@ const nextConfig = {
     styledComponents: true,
   },
   
-  // Output configuration
-  output: 'standalone',
+  // Output configuration - removed standalone for Vercel compatibility
   
   // Disable powered by header
   poweredByHeader: false,

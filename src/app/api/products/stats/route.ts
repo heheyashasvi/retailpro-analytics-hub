@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { NextRequest } from 'next/server'
 import { requireAuth } from '@/lib/auth-middleware'
 import { productService } from '@/services/product'

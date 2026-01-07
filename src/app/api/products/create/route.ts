@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { NextRequest, NextResponse } from 'next/server'
 import { ProductService } from '@/services/product'
 import { ImageService } from '@/services/image'

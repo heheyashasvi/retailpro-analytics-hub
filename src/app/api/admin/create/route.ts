@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { NextRequest, NextResponse } from 'next/server'
 import { withRole } from '@/lib/auth-middleware'
 import { createAdminAction } from '@/app/actions/auth'
