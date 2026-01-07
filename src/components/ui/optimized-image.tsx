@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { LoadingSkeleton } from './loading-spinner'
+import { LoadingSpinner } from './loading-spinner'
 
 interface OptimizedImageProps {
   src: string
@@ -68,9 +68,12 @@ export function OptimizedImage({
 
   return (
     <div className={`relative ${className}`}>
-      {isLoading && (
-        <LoadingSkeleton className={`absolute inset-0 ${fill ? 'w-full h-full' : `w-[${width}px] h-[${height}px]`}`} />
-      )}
+     {isLoading && (
+  <LoadingSpinner
+    className={`absolute inset-0 ${fill ? 'w-full h-full' : `w-[${width}px] h-[${height}px]`}`}
+  />
+)}
+
       <Image
         src={optimizedSrc}
         alt={alt}
@@ -131,4 +134,5 @@ export function HeroImage({ src, alt, className }: { src: string; alt: string; c
       quality={85}
     />
   )
+
 }
